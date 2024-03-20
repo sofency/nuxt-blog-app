@@ -3,13 +3,12 @@
     <NavHeader />
     <div class="article-view">
       <CommonHeadImage :message="article.title" />
-      <Row :type="flex" class="article-content">
+      <Row type="flex" class="article-content">
         <Col :span="0" :lg="4" class="article-info">浏览数据信息</Col>
         <Col :span="24" :lg="16" class="article">
-          <article>
-            <!-- 这样可以加载静态资源 -->
-            <nuxt-content :editable="false" :document="article" />
-          </article>
+          <div class="article-body">
+            <div v-html="parsedMarkdown"></div>
+          </div>
           <BlogComment />
         </Col>
       </Row>
@@ -27,46 +26,55 @@ import { Row, Col } from "ant-design-vue";
 import handleScroll from "../../static/slip";
 
 export default {
-  async asyncData({ $content, params }) {
-    const article = await $content("articles", params.slug).fetch();
-    return { article };
-  },
-  components: { NavHeader, BlogComment, Row, Col, Fotter },
-
-  head() {
+  async asyncData({ $axios, params }) {
+    const responseData = await $axios({ url: `/api/blog/${params.slug}` });
+    console.log(responseData.data);
     return {
-      title: this.article.title,
-      meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: this.article.description,
-        },
-        {
-          hid: "title",
-          name: "title",
-          content: this.article.title,
-        },
-        {
-          hid: "keywords",
-          name: "keywords",
-          content: this.article.keywords,
-        },
-        { hid: "og:title", property: "og:title", content: this.article.title },
-        {
-          hid: "og:description",
-          property: "og:description",
-          content: this.article.description,
-        },
-        {
-          hid: "og:keywords",
-          property: "og:keywords",
-          content: this.article.keywords,
-        },
-        // 这里可以添加更多的meta标签根据需求
-      ],
+      article: responseData.data.data.blog,
+      comments: responseData.data.data.comments,
     };
   },
+  components: { NavHeader, BlogComment, Row, Col, Fotter },
+  computed: {
+    parsedMarkdown() {
+      return this.$md.render(this.article.content);
+    },
+  },
+
+  // head() {
+  //   return {
+  //     title: this.article.title,
+  //     meta: [
+  //       {
+  //         hid: "description",
+  //         name: "description",
+  //         content: this.article.description,
+  //       },
+  //       {
+  //         hid: "title",
+  //         name: "title",
+  //         content: this.article.title,
+  //       },
+  //       {
+  //         hid: "keywords",
+  //         name: "keywords",
+  //         content: this.article.keywords,
+  //       },
+  //       { hid: "og:title", property: "og:title", content: this.article.title },
+  //       {
+  //         hid: "og:description",
+  //         property: "og:description",
+  //         content: this.article.description,
+  //       },
+  //       {
+  //         hid: "og:keywords",
+  //         property: "og:keywords",
+  //         content: this.article.keywords,
+  //       },
+  //       // 这里可以添加更多的meta标签根据需求
+  //     ],
+  //   };
+  // },
   methods: {
     handleDoubleClick() {
       console.log("sasa");

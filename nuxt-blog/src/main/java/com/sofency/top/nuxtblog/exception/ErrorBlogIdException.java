@@ -1,4 +1,4 @@
-ï»¿package com.sofency.top.nuxtblog.exception;
+package com.sofency.top.nuxtblog.exception;
 
 import lombok.Getter;
 
@@ -17,7 +17,7 @@ public class ErrorBlogIdException extends RuntimeException {
 
     @Serial
     private static final long serialVersionUID = 1L;
-    private final String errorMessage; // è‡ªå®šä¹‰é”™è¯¯ä¿¡æ¯
+    private final String errorMessage; // ×Ô¶¨Òå´íÎóĞÅÏ¢
 
     public ErrorBlogIdException(String errorMessage) {
         super(errorMessage);

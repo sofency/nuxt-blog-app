@@ -4,9 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sofency.top.nuxtblog.dto.CommentDTO;
 import com.sofency.top.nuxtblog.entity.Comment;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sofency.top.nuxtblog.vo.CommentVO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import java.sql.SQLDataException;
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ import java.util.List;
  * @since 2024-03-16
  */
 public interface CommentService extends IService<Comment> {
-    public void comment(HttpSession session, Comment comment) throws JsonProcessingException;
+    public void comment(CommentVO commentVO) throws JsonProcessingException, SQLDataException;
 
     public List<CommentDTO> getCommentByBlogId(Integer blogId);
 }

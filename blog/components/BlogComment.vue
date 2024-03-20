@@ -4,18 +4,18 @@
       <div class="comment-title">
         <h3>评论内容</h3>
       </div>
-      <Row :type="flex" class="comment-input">
+      <Row type="flex" class="comment-input">
         <Col :span="0" :lg="2" class="comment-input-img">
           <img src="/img/avatar.jpeg" alt="avatar" />
         </Col>
         <Col :span="24" :lg="20" class="comment-dialog">
-          <textarea name="message" id=""></textarea>
-          <a-button class="submit">提交评论</a-button>
+          <textarea name="message" id="comment-content"></textarea>
+          <a-button class="submit" @click="submitComment">提交评论</a-button>
 
-          <Row :type="flex" class="require-info">
+          <Row type="flex" class="require-info">
             <Col :span="24" :lg="8" class="info">
-              <label for="username">昵称:</label>
-              <input placeholder="用户昵称" id="username" />
+              <label for="nickname">昵称:</label>
+              <input placeholder="用户昵称" id="nickname" />
             </Col>
             <Col :span="24" :lg="8" class="info">
               <label for="email">邮箱:</label>
@@ -29,7 +29,7 @@
         </Col>
       </Row>
 
-      <Row :type="flex" class="comment-detail">
+      <Row type="flex" class="comment-detail">
         <Col :span="2" :lg="2" class="comment-input-img">
           <img src="/img/avatar.jpeg" alt="avatar" />
         </Col>
@@ -47,7 +47,7 @@
               similique iste laboriosam itaque dignissimos assumenda molestiae
               impedit quidem. Eveniet similique nesciunt saepe!
             </div>
-            <Row :type="flex" class="second-comment">
+            <Row type="flex" class="second-comment">
               <Col :span="2" :lg="2" class="comment-input-img">
                 <img src="/img/avatar.jpeg" alt="avatar" />
               </Col>
@@ -75,6 +75,7 @@
 </template>
 <script>
 import { Row, Col } from "ant-design-vue";
+import $ from "jquery";
 export default {
   components: { Row, Col },
   data() {
@@ -82,10 +83,37 @@ export default {
       isLogin: false,
     };
   },
+  // mounted: {
+  //   // 从状态树中获取刚才评论填写的数据
+  // },
 
   methods: {
     reply() {
-      console.log("测试");
+      console.log("reply");
+    },
+    submitComment() {
+      var nickname = $("#nickname").val();
+      var email = $("#email").val();
+      var website = $("#website").val();
+
+      var content = $("#comment-content").val();
+      this.$axios({
+        url: "/api/blog/comment",
+        method: "post",
+        data: {
+          user: {
+            nickname: nickname,
+            email: email,
+            website: website,
+          },
+          comment: {
+            content: content,
+            blogId: 1,
+          },
+        },
+      }).then((res) => {
+        console.log(res);
+      });
     },
   },
 };

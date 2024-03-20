@@ -1,26 +1,26 @@
 <template>
   <div class="blog-container">
     <CommonHeadImage :message="message" />
-    <Row :type="flex" class="contents">
+    <Row type="flex" class="contents">
       <Col :span="24" :md="16" class="blog-list">
         <div
           class="blog-content"
           v-for="article in articles"
           :key="article.slug"
         >
-          <NuxtLink to="/blog/spring" class="blog-title">
+          <NuxtLink :to="`/blog/${article.id}`" class="blog-title">
             {{ article.title }}
           </NuxtLink>
           <div class="blog-publish-info">
-            <span class="author">{{ article.author }}</span>
+            <span class="author">sofency</span>
             <span class="divider">•</span>
-            <span class="tags">{{ article.tags }}</span>
+            <span class="tags">{{ article.tag }}</span>
             <span class="divider">•</span>
-            <time class="pushlish-time">{{ article.publish_time }}</time>
+            <time class="pushlish-time">{{ article.createTime }}</time>
           </div>
           <div class="blog-intro">
             <div class="blog-intro-ellipsis">
-              {{ article.description }}
+              {{ article.content }}
             </div>
           </div>
         </div>

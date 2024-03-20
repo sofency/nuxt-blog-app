@@ -14,6 +14,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -30,6 +31,7 @@ import lombok.experimental.Accessors;
 @TableName("user")
 @ApiModel(value = "User对象", description = "")
 @Builder
+@ToString
 public class User extends Model<User> {
 
     @Serial

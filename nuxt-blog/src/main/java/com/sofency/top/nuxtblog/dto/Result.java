@@ -1,6 +1,7 @@
 package com.sofency.top.nuxtblog.dto;
 
 import lombok.*;
+import org.springframework.http.HttpStatus;
 
 /**
  * <p>Project: nuxt-blog - Response
@@ -20,7 +21,7 @@ public class Result<T> {
     private T data;
 
     public static <T> Result<T> success(T data) {
-        return new Result<T>(200, "success", data);
+        return new Result<T>(HttpStatus.OK.value(), "success", data);
     }
 
     public static <T> Result<T> error(int status, String message) {

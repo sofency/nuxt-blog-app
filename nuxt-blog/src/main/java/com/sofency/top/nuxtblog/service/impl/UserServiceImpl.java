@@ -17,6 +17,7 @@ import org.springframework.util.CollectionUtils;
 import java.sql.SQLDataException;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -28,24 +29,23 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-    private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
-
-    public void saveSession(HttpSession session, User user) throws JsonProcessingException, SQLDataException {
+    @Override
+    public User getUserInfo(User user) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq(User.NICKNAME, user.getNickname());
-        List<User> userList = this.list(wrapper);
-        logger.info("current nickname find result {}", userList.size());
-        if (CollectionUtils.isEmpty(userList)) {
+        wrapper.eq(User.EMAIL, user.getEmail());
+        List<User> users = this.list(wrapper);
+        if (CollectionUtils.isEmpty(users)) {
             user.setRegisterTime(new Date());
-            boolean success = this.save(user);
-            logger.info("save nickname {} to db , result: {}", user.getNickname(), success);
-            if (success) {
-                session.setAttribute("user", JsonUtils.toJson(user));
-            } else {
-                throw new SQLDataException("登录数据保存失败");
-            }
+            this.save(user);
+            return user;
         } else {
-            session.setAttribute("user", JsonUtils.toJson(userList.get(0)));
+            User temp = users.get(0);
+            if (!Objects.equals(temp.getWebsite(), user.getWebsite())){
+                temp.setWebsite(user.getWebsite());
+                this.updateById(temp);
+            }
+            return temp;
         }
     }
 }

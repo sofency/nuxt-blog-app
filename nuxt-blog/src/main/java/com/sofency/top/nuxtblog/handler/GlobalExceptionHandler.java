@@ -1,4 +1,4 @@
-﻿package com.sofency.top.nuxtblog.handler;
+package com.sofency.top.nuxtblog.handler;
 
 import com.sofency.top.nuxtblog.dto.Result;
 import com.sofency.top.nuxtblog.exception.SessionTimeoutException;

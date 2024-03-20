@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.models.auth.In;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -30,6 +31,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("comment")
 @ApiModel(value = "Comment对象", description = "")
+@ToString
 public class Comment extends Model<Comment> {
 
     @Serial
@@ -61,7 +63,7 @@ public class Comment extends Model<Comment> {
 
     @ApiModelProperty("是否删除 0否 1是")
     @TableField("is_delete")
-    private Boolean delete;
+    private Boolean deleted;
 
     @ApiModelProperty("是否审核过 0未审核，1审核过，审核过定时发送给回复的用户")
     @TableField("is_review")

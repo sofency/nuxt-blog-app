@@ -1,7 +1,8 @@
 package com.sofency.top.nuxtblog.config;
 
-import com.sofency.top.nuxtblog.interceptor.CommentInterceptor;
+import com.sofency.top.nuxtblog.service.UserService;
 import lombok.NonNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -16,10 +17,16 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  */
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+    private UserService userService;
+
+    @Autowired
+    public WebMvcConfig(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
         // 只针对该路径拦截
-        registry.addInterceptor(new CommentInterceptor()).addPathPatterns("/blog/comment/submit");
+        // registry.addInterceptor(new CommentInterceptor(userService)).addPathPatterns("/blog/comment/submit");
     }
 }

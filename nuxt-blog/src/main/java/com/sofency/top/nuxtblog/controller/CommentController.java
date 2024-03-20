@@ -6,10 +6,12 @@ import com.sofency.top.nuxtblog.dto.CommentDTO;
 import com.sofency.top.nuxtblog.dto.Result;
 import com.sofency.top.nuxtblog.entity.Comment;
 import com.sofency.top.nuxtblog.service.CommentService;
+import com.sofency.top.nuxtblog.vo.CommentVO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLDataException;
 import java.util.List;
 
 /**
@@ -31,8 +33,8 @@ public class CommentController {
     }
 
     @RequestMapping("")
-    public Result<Object> comment(@RequestBody Comment comment, HttpServletRequest request) throws JsonProcessingException {
-        commentService.comment(request.getSession(), comment);
+    public Result<Object> comment(@RequestBody CommentVO commentVO) throws JsonProcessingException, SQLDataException {
+        commentService.comment(commentVO);
         return Result.success(null);
     }
 

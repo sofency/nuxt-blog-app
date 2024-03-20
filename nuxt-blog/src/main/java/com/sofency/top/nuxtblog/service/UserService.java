@@ -16,5 +16,5 @@ import java.sql.SQLDataException;
  * @since 2024-03-16
  */
 public interface UserService extends IService<User> {
-    void saveSession(HttpSession session, User user) throws JsonProcessingException, SQLDataException;
+    User getUserInfo(User user) throws JsonProcessingException, SQLDataException;
 }

@@ -1,4 +1,4 @@
-﻿package com.sofency.top.nuxtblog.dto;
+package com.sofency.top.nuxtblog.dto;
 
 import com.sofency.top.nuxtblog.entity.Comment;
 import lombok.*;

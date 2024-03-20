@@ -9,7 +9,7 @@
         <result column="tag" property="tag" />
         <result column="content" property="content" />
         <result column="is_top" property="top" />
-        <result column="is_delete" property="delete" />
+        <result column="is_delete" property="deleted" />
         <result column="status" property="status" />
         <result column="create_time" property="createTime" />
         <result column="update_time" property="updateTime" />
@@ -17,7 +17,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, title, tag, content, is_top, is_delete, status, create_time, update_time
+        id, title, tag, content, `is_top` as `top`, `is_delete` as `deleted`, status, create_time, update_time
     </sql>
 
 </mapper>

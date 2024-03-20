@@ -16,7 +16,7 @@ import java.sql.SQLDataException;
 
 /**
  * <p>
- * å‰ç«¯æ§åˆ¶å™¨
+ * Ç°¶Ë¿ØÖÆÆ÷
  * </p>
  *
  * @author sofency
@@ -32,10 +32,5 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping("/login")
-    public Result<User> login(@RequestBody User user, HttpServletRequest request) throws JsonProcessingException, SQLDataException {
-        userService.saveSession(request.getSession(), user);
-        return Result.success(user);
-    }
 }
 

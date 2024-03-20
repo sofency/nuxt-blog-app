@@ -1,10 +1,8 @@
-﻿package com.sofency.top.nuxtblog.dto;
+package com.sofency.top.nuxtblog.dto;
 
 import com.sofency.top.nuxtblog.entity.Blog;
 import lombok.*;
-
 import java.util.List;
-
 /**
  * <p>Project: nuxt-blog - BlogDTO
  * <p>Powered by echo On 2024-03-17 20:52:10

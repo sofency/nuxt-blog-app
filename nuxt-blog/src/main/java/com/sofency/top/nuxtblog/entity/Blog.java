@@ -56,7 +56,7 @@ public class Blog extends Model<Blog> {
 
     @ApiModelProperty("是否删除 0 1是")
     @TableField("is_delete")
-    private Boolean delete;
+    private Boolean deleted;
 
     @ApiModelProperty("状态值 1公开 2私密 3评论可见")
     @TableField("status")
