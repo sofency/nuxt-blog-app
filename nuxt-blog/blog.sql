@@ -33,6 +33,9 @@ create table `comment`
     `status`        tinyint(1)    not null default 0 comment '是否发送过 0未发送 1发送',
     `create_time`   datetime      not null comment '评论时间',
     `update_time`   datetime      not null comment '更新时间',
+    `ip_source`     varchar(100)  not null comment 'IP 来源',
+    `ip_address`    varchar(100)  not null comment 'IP地址',
+
     INDEX `comment_user` (`user_id`) USING BTREE,
     INDEX `comment_parent` (`parent_id`) USING BTREE
 ) auto_increment = 724;
