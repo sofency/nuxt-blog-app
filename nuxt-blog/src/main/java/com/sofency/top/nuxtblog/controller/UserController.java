@@ -16,7 +16,7 @@ import java.sql.SQLDataException;
 
 /**
  * <p>
- * Ç°¶Ë¿ØÖÆÆ÷
+ * å‰ç«¯æ§åˆ¶å™¨
  * </p>
  *
  * @author sofency

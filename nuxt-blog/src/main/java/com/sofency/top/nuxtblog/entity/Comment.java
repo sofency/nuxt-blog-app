@@ -10,6 +10,8 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.models.auth.In;
@@ -75,11 +77,20 @@ public class Comment extends Model<Comment> {
 
     @ApiModelProperty("评论时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     @ApiModelProperty("更新时间")
     @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
+
+    @ApiModelProperty("IP地址")
+    @TableField(value = "ip_source")
+    private String ipSource;
+    @ApiModelProperty("IP属地")
+    @TableField(value = "update_time")
+    private String ipAddress;
 
 
     public static final String ID = "id";
@@ -103,6 +114,10 @@ public class Comment extends Model<Comment> {
     public static final String CREATE_TIME = "create_time";
 
     public static final String UPDATE_TIME = "update_time";
+
+    public static final String IP_SOURCE = "ip_source";
+
+    public static final String IP_ADDRESS = "ip_address";
 
     @Override
     public Serializable pkVal() {

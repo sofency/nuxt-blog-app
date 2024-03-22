@@ -2,6 +2,7 @@ package com.sofency.top.nuxtblog.service.impl;
 
 import com.sofency.top.nuxtblog.dto.BlogDTO;
 import com.sofency.top.nuxtblog.dto.CommentDTO;
+import com.sofency.top.nuxtblog.dto.CommentListDTO;
 import com.sofency.top.nuxtblog.entity.Blog;
 import com.sofency.top.nuxtblog.exception.ErrorBlogIdException;
 import com.sofency.top.nuxtblog.mapper.BlogMapper;
@@ -37,7 +38,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
         if (Objects.isNull(blog)) {
             throw new ErrorBlogIdException("未找到该文件,请检查BlogId");
         }
-        List<CommentDTO> commentDTOS = commentService.getCommentByBlogId(blogId);
-        return BlogDTO.builder().comments(commentDTOS).blog(blog).build();
+        List<CommentListDTO> commentListDTOS = commentService.getCommentByBlogId(blogId);
+        return BlogDTO.builder().comments(commentListDTOS).blog(blog).build();
     }
 }

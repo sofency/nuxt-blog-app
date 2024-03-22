@@ -17,7 +17,7 @@ public class ErrorBlogIdException extends RuntimeException {
 
     @Serial
     private static final long serialVersionUID = 1L;
-    private final String errorMessage; // ×Ô¶¨Òå´íÎóĞÅÏ¢
+    private final String errorMessage; // è‡ªå®šä¹‰é”™è¯¯ä¿¡æ¯
 
     public ErrorBlogIdException(String errorMessage) {
         super(errorMessage);

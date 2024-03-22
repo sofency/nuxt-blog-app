@@ -19,10 +19,6 @@ export default {
     console.log(responseData.data);
     return { articles: responseData.data.data };
   },
-  // async asyncData({ $content }) {
-  //   const articles = await $content("articles").fetch();
-  //   return { articles };
-  // },
   mounted() {
     window.addEventListener("scroll", handleScroll);
   },

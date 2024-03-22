@@ -29,7 +29,12 @@
         </Col>
       </Row>
 
-      <Row type="flex" class="comment-detail">
+      <Row
+        type="flex"
+        class="comment-detail"
+        v-for="(comment, index) in comments"
+        :key="index"
+      >
         <Col :span="2" :lg="2" class="comment-input-img">
           <img src="/img/avatar.jpeg" alt="avatar" />
         </Col>
@@ -37,33 +42,47 @@
           <div class="user-comment-info">
             <div>
               <span class="user-name">sofency</span>
-              <span class="publish-time text-color">2023年8月8日</span>
-              <span class="comment-ip text-color">IP属地: 湖北</span>
+              <span class="publish-time text-color">{{
+                comment.parentComment.createTime
+              }}</span>
+              <span class="comment-ip text-color"
+                >IP属地: {{ comment.parentComment.ipAddress }}</span
+              >
               <button class="reply text-color" @click="reply">回复</button>
             </div>
             <div class="message">
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-              Accusantium in eligendi perferendis quis, deserunt harum quasi ea
-              similique iste laboriosam itaque dignissimos assumenda molestiae
-              impedit quidem. Eveniet similique nesciunt saepe!
+              {{ comment.parentComment.content }}
             </div>
-            <Row type="flex" class="second-comment">
+            <!-- 子评论 -->
+            <Row
+              type="flex"
+              class="second-comment"
+              v-for="(child, child_index) in comment.childComment"
+              :key="child_index"
+            >
               <Col :span="2" :lg="2" class="comment-input-img">
                 <img src="/img/avatar.jpeg" alt="avatar" />
               </Col>
               <Col :span="22" :lg="22">
                 <div>
-                  <span class="user-name">sofency @ alice</span>
-                  <span class="publish-time text-color">2023年8月8日</span>
-                  <span class="comment-ip text-color">IP属地: 湖北</span>
+                  <span class="user-name" v-if="child.replyName == null">{{
+                    child.username
+                  }}</span>
+                  <span class="user-name" v-else
+                    >{{ child.username }} @ {{ child.replyName }}</span
+                  >
+
+                  <span class="publish-time text-color">{{
+                    child.createTime
+                  }}</span>
+                  <span class="comment-ip text-color"
+                    >IP属地: {{ child.ipAddress }}</span
+                  >
                   <button class="reply text-color">回复</button>
                 </div>
 
                 <div class="message">
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Accusantium in eligendi perferendis quis, deserunt harum quasi
-                  ea similique iste laboriosam itaque dignissimos assumenda
-                  molestiae impedit quidem. Eveniet similique nesciunt saepe!
+                  {{ child.content }}
                 </div>
               </Col>
             </Row>
@@ -78,14 +97,14 @@ import { Row, Col } from "ant-design-vue";
 import $ from "jquery";
 export default {
   components: { Row, Col },
+  props: {
+    comments: Array,
+  },
   data() {
     return {
       isLogin: false,
     };
   },
-  // mounted: {
-  //   // 从状态树中获取刚才评论填写的数据
-  // },
 
   methods: {
     reply() {
@@ -108,7 +127,7 @@ export default {
           },
           comment: {
             content: content,
-            blogId: 1,
+            blogId: params.slug,
           },
         },
       }).then((res) => {

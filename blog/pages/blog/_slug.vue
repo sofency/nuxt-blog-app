@@ -9,7 +9,7 @@
           <div class="article-body">
             <div v-html="parsedMarkdown"></div>
           </div>
-          <BlogComment />
+          <BlogComment :comments="comments" />
         </Col>
       </Row>
     </div>
@@ -28,7 +28,7 @@ import handleScroll from "../../static/slip";
 export default {
   async asyncData({ $axios, params }) {
     const responseData = await $axios({ url: `/api/blog/${params.slug}` });
-    console.log(responseData.data);
+    console.log(responseData.data.data.comments[0].childComment);
     return {
       article: responseData.data.data.blog,
       comments: responseData.data.data.comments,

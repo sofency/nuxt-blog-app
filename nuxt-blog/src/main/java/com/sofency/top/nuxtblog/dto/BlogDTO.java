@@ -18,5 +18,5 @@ import java.util.List;
 @Builder
 public class BlogDTO {
     private Blog blog;
-    private List<CommentDTO> comments;
+    private List<CommentListDTO> comments;
 }

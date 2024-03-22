@@ -16,7 +16,7 @@ import java.io.Serial;
 public class SessionTimeoutException extends RuntimeException {
     @Serial
     private static final long serialVersionUID = 1L;
-    private final String errorMessage; // ×Ô¶¨Òå´íÎóÐÅÏ¢
+    private final String errorMessage; // ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢
 
     public SessionTimeoutException(String errorMessage) {
         super(errorMessage);
