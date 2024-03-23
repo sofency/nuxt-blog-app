@@ -4,30 +4,36 @@
       <div class="comment-title">
         <h3>评论内容</h3>
       </div>
-      <Row type="flex" class="comment-input">
-        <Col :span="0" :lg="2" class="comment-input-img">
-          <img src="/img/avatar.jpeg" alt="avatar" />
-        </Col>
-        <Col :span="24" :lg="20" class="comment-dialog">
-          <textarea name="message" id="comment-content"></textarea>
-          <a-button class="submit" @click="submitComment">提交评论</a-button>
+      <div ref="replyBox">
+        <Row type="flex" class="comment-input">
+          <Col :span="0" :lg="2" class="comment-input-img">
+            <img src="/img/avatar.jpeg" alt="avatar" />
+          </Col>
+          <Col :span="24" :lg="20" class="comment-dialog">
+            <textarea
+              name="message"
+              id="comment-content"
+              ref="commentContent"
+            ></textarea>
+            <a-button class="submit" @click="submitComment">提交评论</a-button>
 
-          <Row type="flex" class="require-info">
-            <Col :span="24" :lg="8" class="info">
-              <label for="nickname">昵称:</label>
-              <input placeholder="用户昵称" id="nickname" />
-            </Col>
-            <Col :span="24" :lg="8" class="info">
-              <label for="email">邮箱:</label>
-              <input placeholder="仅用于接收消息" id="email" />
-            </Col>
-            <Col :span="24" :lg="8" class="info">
-              <label for="website">网址:</label>
-              <input placeholder="您的网址" id="website" />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+            <Row type="flex" class="require-info">
+              <Col :span="24" :lg="8" class="info">
+                <label for="nickname">昵称:</label>
+                <input placeholder="用户昵称" id="nickname" />
+              </Col>
+              <Col :span="24" :lg="8" class="info">
+                <label for="email">邮箱:</label>
+                <input placeholder="仅用于接收消息" id="email" />
+              </Col>
+              <Col :span="24" :lg="8" class="info">
+                <label for="website">网址:</label>
+                <input placeholder="您的网址" id="website" />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </div>
 
       <Row
         type="flex"
@@ -48,7 +54,12 @@
               <span class="comment-ip text-color"
                 >IP属地: {{ comment.parentComment.ipAddress }}</span
               >
-              <button class="reply text-color" @click="reply">回复</button>
+              <button
+                class="reply text-color"
+                @click="reply(comment.parentComment.id, null, 0)"
+              >
+                回复
+              </button>
             </div>
             <div class="message">
               {{ comment.parentComment.content }}
@@ -78,7 +89,12 @@
                   <span class="comment-ip text-color"
                     >IP属地: {{ child.ipAddress }}</span
                   >
-                  <button class="reply text-color">回复</button>
+                  <button
+                    class="reply text-color"
+                    @click="reply(comment.parentComment.id, child.id, 1)"
+                  >
+                    回复
+                  </button>
                 </div>
 
                 <div class="message">
@@ -103,12 +119,39 @@ export default {
   data() {
     return {
       isLogin: false,
+      replyCommentId: null,
+      parentCommentId: null,
+      type: 0,
     };
   },
 
   methods: {
-    reply() {
-      console.log("reply");
+    reply(parentCommentId, replyCommentId, type) {
+      this.parentCommentId = parentCommentId;
+      if (type == 1) {
+        this.replyCommentId = replyCommentId;
+      }
+      console.log(parentCommentId, replyCommentId);
+      const replyBox = this.$refs.replyBox;
+      replyBox.scrollIntoView({ behavior: "smooth" }); // 滚动到评论框位置
+
+      // 等待滚动完成后，再额外滚动 30px
+      this.$nextTick(() => {
+        const currentScrollPosition =
+          window.pageYOffset || document.documentElement.scrollTop;
+        const replyBoxOffsetTop = replyBox.offsetTop;
+        const targetScrollPosition =
+          replyBoxOffsetTop - currentScrollPosition + 30; // 加上 30px 的偏移
+
+        // 平滑滚动到目标位置
+        window.scrollTo({
+          top: targetScrollPosition,
+          behavior: "smooth",
+        });
+        const commentContent = this.$refs.commentContent;
+        // 设置焦点
+        commentContent.focus();
+      });
     },
     submitComment() {
       var nickname = $("#nickname").val();
@@ -127,7 +170,9 @@ export default {
           },
           comment: {
             content: content,
-            blogId: params.slug,
+            blogId: this.$route.params.slug,
+            replyCommentId: this.replyCommentId,
+            parentId: this.parentCommentId,
           },
         },
       }).then((res) => {
@@ -169,6 +214,7 @@ export default {
 .comment-detail {
   border-top: 1px solid rgba(222, 229, 231, 0.45);
   padding-top: 10px;
+  margin-bottom: 20px;
 }
 .comment-input-img {
   img {
@@ -202,5 +248,9 @@ export default {
       }
     }
   }
+}
+
+.message {
+  margin-top: 10px;
 }
 </style>

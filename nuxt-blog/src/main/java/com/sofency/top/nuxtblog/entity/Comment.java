@@ -60,8 +60,8 @@ public class Comment extends Model<Comment> {
     private Integer parentId;
 
     @ApiModelProperty("回复评论id")
-    @TableField("reply_user_id")
-    private Integer replyUserId;
+    @TableField("reply_comment_id")
+    private Integer replyCommentId;
 
     @ApiModelProperty("是否删除 0否 1是")
     @TableField("is_delete")
@@ -75,6 +75,14 @@ public class Comment extends Model<Comment> {
     @TableField("status")
     private Boolean status;
 
+    @ApiModelProperty("IP地址")
+    @TableField(value = "ip_source")
+    private String ipSource;
+
+    @ApiModelProperty("IP属地")
+    @TableField(value = "ip_address")
+    private String ipAddress;
+
     @ApiModelProperty("评论时间")
     @TableField(value = "create_time", fill = FieldFill.INSERT)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
@@ -85,12 +93,7 @@ public class Comment extends Model<Comment> {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    @ApiModelProperty("IP地址")
-    @TableField(value = "ip_source")
-    private String ipSource;
-    @ApiModelProperty("IP属地")
-    @TableField(value = "update_time")
-    private String ipAddress;
+
 
 
     public static final String ID = "id";
@@ -103,7 +106,7 @@ public class Comment extends Model<Comment> {
 
     public static final String PARENT_ID = "parent_id";
 
-    public static final String REPLY_USER_ID = "reply_user_id";
+    public static final String REPLY_COMMENT_ID = "reply_comment_id";
 
     public static final String IS_DELETE = "is_delete";
 

@@ -33,10 +33,9 @@ public class CommentDTO extends Comment {
         this.setIpAddress(comment.getIpAddress());
         this.setIpSource(comment.getIpSource());
         this.setParentId(comment.getParentId());
-        this.setReplyUserId(comment.getReplyUserId());
+        this.setReplyCommentId(comment.getReplyCommentId());
         this.setReview(comment.getReview());
         this.setStatus(comment.getStatus());
-        this.setUpdateTime(comment.getUpdateTime());
         this.setDeleted(comment.getDeleted());
     }
 }

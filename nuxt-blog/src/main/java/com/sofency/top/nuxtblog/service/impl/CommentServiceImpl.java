@@ -50,8 +50,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         logger.info("current user: {} comment info:{}", user.getNickname(), commentVO.getComment().getContent());
         Comment comment = commentVO.getComment();
         comment.setUserId(user.getId());
-        comment.setCreateTime(new Date());
-        comment.setUpdateTime(new Date());
         this.save(comment);
     }
 
@@ -71,8 +69,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
                 User parentUser = userService.getById(parentComment.getUserId());
                 commentDTO.setParentName(parentUser.getNickname());
             }
-            if (Objects.nonNull(comment.getReplyUserId())) {
-                Comment replyCcomment = this.getById(comment.getReplyUserId());
+            if (Objects.nonNull(comment.getReplyCommentId())) {
+                Comment replyCcomment = this.getById(comment.getReplyCommentId());
                 User replyUser = userService.getById(replyCcomment.getUserId());
                 commentDTO.setReplyName(replyUser.getNickname());
             }
