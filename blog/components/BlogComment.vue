@@ -20,15 +20,23 @@
             <Row type="flex" class="require-info">
               <Col :span="24" :lg="8" class="info">
                 <label for="nickname">昵称:</label>
-                <input placeholder="用户昵称" id="nickname" />
+                <input
+                  placeholder="用户昵称"
+                  id="nickname"
+                  v-model="nickname"
+                />
               </Col>
               <Col :span="24" :lg="8" class="info">
                 <label for="email">邮箱:</label>
-                <input placeholder="仅用于接收消息" id="email" />
+                <input
+                  placeholder="仅用于接收消息"
+                  id="email"
+                  v-model="email"
+                />
               </Col>
               <Col :span="24" :lg="8" class="info">
                 <label for="website">网址:</label>
-                <input placeholder="您的网址" id="website" />
+                <input placeholder="您的网址" id="website" v-model="website" />
               </Col>
             </Row>
           </Col>
@@ -109,6 +117,7 @@
   </div>
 </template>
 <script>
+import Cookies from "js-cookie";
 import { Row, Col } from "ant-design-vue";
 import $ from "jquery";
 export default {
@@ -122,9 +131,22 @@ export default {
       replyCommentId: null,
       parentCommentId: null,
       type: 0,
+      nickname: "",
+      email: "",
+      website: "",
     };
   },
+  mounted() {
+    var user = Cookies.get("user");
+    const userData = user ? JSON.parse(user) : null;
 
+    if (userData) {
+      // 如果存在用户名，则设置到data中的username，进而通过v-model反映到input上
+      this.nickname = userData.nickname;
+      this.email = userData.email;
+      this.website = userData.website;
+    }
+  },
   methods: {
     reply(parentCommentId, replyCommentId, type) {
       this.parentCommentId = parentCommentId;
@@ -176,7 +198,7 @@ export default {
           },
         },
       }).then((res) => {
-        console.log(res);
+        Cookies.set("user", JSON.stringify(res.data.data));
       });
     },
   },

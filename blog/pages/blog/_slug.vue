@@ -27,8 +27,9 @@ import handleScroll from "../../static/slip";
 
 export default {
   async asyncData({ $axios, params }) {
-    const responseData = await $axios({ url: `/api/blog/${params.slug}` });
-    console.log(responseData.data.data.comments[0].childComment);
+    const responseData = await $axios({
+      url: `/api/blog/detail/${params.slug}`,
+    });
     return {
       article: responseData.data.data.blog,
       comments: responseData.data.data.comments,
@@ -41,40 +42,24 @@ export default {
     },
   },
 
-  // head() {
-  //   return {
-  //     title: this.article.title,
-  //     meta: [
-  //       {
-  //         hid: "description",
-  //         name: "description",
-  //         content: this.article.description,
-  //       },
-  //       {
-  //         hid: "title",
-  //         name: "title",
-  //         content: this.article.title,
-  //       },
-  //       {
-  //         hid: "keywords",
-  //         name: "keywords",
-  //         content: this.article.keywords,
-  //       },
-  //       { hid: "og:title", property: "og:title", content: this.article.title },
-  //       {
-  //         hid: "og:description",
-  //         property: "og:description",
-  //         content: this.article.description,
-  //       },
-  //       {
-  //         hid: "og:keywords",
-  //         property: "og:keywords",
-  //         content: this.article.keywords,
-  //       },
-  //       // 这里可以添加更多的meta标签根据需求
-  //     ],
-  //   };
-  // },
+  head() {
+    return {
+      title: this.article.title,
+      meta: [
+        {
+          hid: "title",
+          name: "title",
+          content: this.article.title,
+        },
+        {
+          hid: "og:keywords",
+          property: "og:keywords",
+          content: this.article.tag,
+        },
+        // 这里可以添加更多的meta标签根据需求
+      ],
+    };
+  },
   methods: {
     handleDoubleClick() {
       console.log("sasa");

@@ -2,13 +2,30 @@ create table `blog`
 (
     `id`          int          not null auto_increment primary key comment '博客ID',
     `title`       varchar(128) not null comment '标题',
-    `tag`         varchar(64)  not null comment '标签',
+    `tag`         varchar(64)  not null comment '标签ID列表',
+    `archive_id`  int          not null comment '归档ID',
     `content`     longtext     not null comment '内容',
     `is_top`      tinyint(1)   not null default 0 comment '是否置顶 0否 1是',
     `is_delete`   tinyint(1)   not null default 0 comment '是否删除 0 1是',
     `status`      tinyint(1)   not null default 1 comment '状态值 1公开 2私密 3评论可见',
     `create_time` datetime     not null comment '发表时间',
     `update_time` datetime     not null comment '更新时间'
+);
+
+create table `tag`
+(
+    `id`          int         not null auto_increment primary key comment '标签ID',
+    `name`        varchar(64) not null comment '标签姓名',
+    `create_time` datetime    not null comment '创建时间',
+    `update_time` datetime    not null comment '更新时间'
+);
+
+create table `archive`
+(
+    `id`          int         not null auto_increment primary key comment '归档ID',
+    `name`        varchar(64) not null comment '标签姓名',
+    `create_time` datetime    not null comment '创建时间',
+    `update_time` datetime    not null comment '更新时间'
 );
 
 create table `user`

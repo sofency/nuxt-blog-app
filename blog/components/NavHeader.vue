@@ -5,7 +5,8 @@
         <div class="title">我的博客</div>
         <ul>
           <li><NuxtLink to="/">首页</NuxtLink></li>
-          <li><NuxtLink to="/daily">日记</NuxtLink></li>
+          <li><NuxtLink to="/archive">归档</NuxtLink></li>
+          <li><NuxtLink to="/resource">学习资料</NuxtLink></li>
           <li><NuxtLink to="/links">友链</NuxtLink></li>
           <li><NuxtLink to="/about">关于</NuxtLink></li>
         </ul>
@@ -73,7 +74,7 @@
   }
   ul li {
     display: inline-block;
-    width: 80px;
+    margin-right: 30px;
   }
 }
 </style>

@@ -44,9 +44,14 @@ public class Blog extends Model<Blog> {
     @TableField("title")
     private String title;
 
-    @ApiModelProperty("标签")
+    @ApiModelProperty("标签ID;分隔开")
     @TableField("tag")
     private String tag;
+
+    @ApiModelProperty("归档ID")
+    @TableField("archive_id")
+    private String archiveId;
+
 
     @ApiModelProperty("内容")
     @TableField("content")
@@ -80,6 +85,8 @@ public class Blog extends Model<Blog> {
     public static final String TITLE = "title";
 
     public static final String TAG = "tag";
+
+    public static final String ARCHIVE_ID = "archive_id";
 
     public static final String CONTENT = "content";
 

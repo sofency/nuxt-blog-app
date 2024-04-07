@@ -40,7 +40,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     private UserService userService;
 
     @Override
-    public void comment(HttpServletRequest request, CommentVO commentVO) throws JsonProcessingException, SQLDataException {
+    public User comment(HttpServletRequest request, CommentVO commentVO) throws JsonProcessingException, SQLDataException {
         String ipAddress = IpUtils.getIpAddress(request);
         String ipSource = IpUtils.getIpSource(ipAddress);
         commentVO.getComment().setIpAddress(ipAddress);
@@ -51,6 +51,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         Comment comment = commentVO.getComment();
         comment.setUserId(user.getId());
         this.save(comment);
+        return user;
     }
 
     @Override
@@ -62,16 +63,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         List<CommentDTO> commentDTOS = new ArrayList<>();
         for (Comment comment : comments) {
             CommentDTO commentDTO = new CommentDTO(comment);
-            User user = userService.getById(comment.getUserId());
+            User user = userService.getUserById(comment.getUserId());
             commentDTO.setUsername(user.getNickname());
             if (Objects.nonNull(comment.getParentId())) {
                 Comment parentComment = this.getById(comment.getParentId());
-                User parentUser = userService.getById(parentComment.getUserId());
+                User parentUser = userService.getUserById(parentComment.getUserId());
                 commentDTO.setParentName(parentUser.getNickname());
             }
             if (Objects.nonNull(comment.getReplyCommentId())) {
                 Comment replyCcomment = this.getById(comment.getReplyCommentId());
-                User replyUser = userService.getById(replyCcomment.getUserId());
+                User replyUser = userService.getUserById(replyCcomment.getUserId());
                 commentDTO.setReplyName(replyUser.getNickname());
             }
             commentDTOS.add(commentDTO);

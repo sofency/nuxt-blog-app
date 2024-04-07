@@ -2,12 +2,10 @@ package com.sofency.top.nuxtblog.controller;
 
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.sofency.top.nuxtblog.dto.CommentDTO;
 import com.sofency.top.nuxtblog.dto.CommentListDTO;
 import com.sofency.top.nuxtblog.dto.Result;
-import com.sofency.top.nuxtblog.entity.Comment;
+import com.sofency.top.nuxtblog.entity.User;
 import com.sofency.top.nuxtblog.service.CommentService;
-import com.sofency.top.nuxtblog.utils.IpUtils;
 import com.sofency.top.nuxtblog.vo.CommentVO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +34,8 @@ public class CommentController {
 
     @RequestMapping("")
     public Result<Object> comment(@RequestBody CommentVO commentVO, HttpServletRequest request) throws JsonProcessingException, SQLDataException {
-        commentService.comment(request, commentVO);
-        return Result.success(null);
+        User user = commentService.comment(request, commentVO);
+        return Result.success(user);
     }
 
     @GetMapping("/{blogId}")

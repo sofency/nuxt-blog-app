@@ -17,6 +17,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class BlogDTO {
-    private Blog blog;
+    private BlogDetail blog;
     private List<CommentListDTO> comments;
 }

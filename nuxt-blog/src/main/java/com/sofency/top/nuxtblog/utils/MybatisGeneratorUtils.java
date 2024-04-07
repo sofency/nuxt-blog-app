@@ -49,7 +49,7 @@ public class MybatisGeneratorUtils {
                             .service("service") // service包名
                             .serviceImpl("service.impl") // serviceImpl包名
                             .mapper("mapper") // mapper包名
-                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "/Users/sofency/code/nuxt-blog/src/main/resources/mappers")) // xml位置（还可自定义配置entity，service等位置）
+                            .pathInfo(Collections.singletonMap(OutputFile.mapperXml, "/Users/sofency/code/nuxt-blog/src/main/resources/mapper")) // xml位置（还可自定义配置entity，service等位置）
                             .controller("controller"); // controller包名
                 })
 
