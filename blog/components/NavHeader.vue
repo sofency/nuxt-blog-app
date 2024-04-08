@@ -5,7 +5,7 @@
         <div class="title">我的博客</div>
         <ul>
           <li><NuxtLink to="/">首页</NuxtLink></li>
-          <li><NuxtLink to="/archive">归档</NuxtLink></li>
+          <li><NuxtLink to="/archives">归档</NuxtLink></li>
           <li><NuxtLink to="/resource">学习资料</NuxtLink></li>
           <li><NuxtLink to="/links">友链</NuxtLink></li>
           <li><NuxtLink to="/about">关于</NuxtLink></li>

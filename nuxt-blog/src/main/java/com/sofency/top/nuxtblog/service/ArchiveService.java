@@ -1,7 +1,10 @@
 package com.sofency.top.nuxtblog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.sofency.top.nuxtblog.dto.ArchiveDTO;
 import com.sofency.top.nuxtblog.entity.Archive;
+
+import java.util.List;
 
 /**
  * <p>

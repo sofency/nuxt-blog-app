@@ -2,9 +2,12 @@
   <div class="container">
     <ul class="category-list">
       <li class="category-list-item" v-for="archive in archives" :key="archive">
-        <NuxtLink :to="`/blog/archive/${archive.id}`" class="archive-item">
-          {{ archive.name }}</NuxtLink
+        <NuxtLink
+          :to="`/archive/${archive.archive.id}?name=${archive.archive.name}`"
+          class="archive-item"
         >
+          {{ archive.archive.name }} ({{ archive.count }})
+        </NuxtLink>
       </li>
     </ul>
   </div>
@@ -52,6 +55,7 @@ export default {
     cursor: pointer;
     transition: all 0.3s ease-out;
   }
+
   .archive-item {
     color: var(--font-color);
     font-size: var(--global-font-size);
@@ -61,6 +65,8 @@ export default {
   }
   .archive-item:hover {
     color: #225a50;
+    text-decoration: underline;
+    text-underline-offset: 2px;
   }
 }
 </style>

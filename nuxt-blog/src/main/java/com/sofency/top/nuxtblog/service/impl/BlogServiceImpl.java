@@ -1,7 +1,9 @@
 package com.sofency.top.nuxtblog.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sofency.top.nuxtblog.dto.ArchiveDTO;
 import com.sofency.top.nuxtblog.dto.BlogDTO;
 import com.sofency.top.nuxtblog.dto.BlogDetail;
 import com.sofency.top.nuxtblog.dto.CommentListDTO;
@@ -21,7 +23,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -85,5 +86,24 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
                 .results(results).build();
     }
 
+    @Override
+    public PageVO pageList(Long current, QueryWrapper<Blog> wrapper) {
+        IPage<Blog> blogIPage = new Page<>(current, SIZE);
+        IPage<Blog> pageList = this.page(blogIPage, wrapper);
+        List<Blog> results = pageList.getRecords();
+        return PageVO.builder().total(pageList.getTotal()).current(pageList.getCurrent())
+                .page(SIZE)
+                .results(results).build();
+    }
 
+    @Override
+    public List<ArchiveDTO> buildArchives() {
+        List<Archive> archives = archiveService.list();
+        return archives.stream().map(archive -> {
+            QueryWrapper<Blog> wrapper = new QueryWrapper<>();
+            wrapper.eq(Blog.ARCHIVE_ID, archive.getId());
+            List<Blog> blogList = this.list(wrapper);
+            return ArchiveDTO.builder().archive(archive).count(blogList.size()).build();
+        }).collect(Collectors.toList());
+    }
 }

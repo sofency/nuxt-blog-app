@@ -1,9 +1,10 @@
 package com.sofency.top.nuxtblog.controller;
 
 
-
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.sofency.top.nuxtblog.dto.BlogDTO;
 import com.sofency.top.nuxtblog.dto.Result;
+import com.sofency.top.nuxtblog.entity.Blog;
 import com.sofency.top.nuxtblog.service.BlogService;
 import com.sofency.top.nuxtblog.vo.PageVO;
 import org.slf4j.Logger;
@@ -46,6 +47,15 @@ public class BlogController {
     public Result<PageVO> getBlogList(@RequestParam(defaultValue = "1") Long current) {
         logger.info("current {}", current);
         PageVO pageVO = blogService.pageList(current);
+        return Result.success(pageVO);
+    }
+
+    @RequestMapping("/page/archive/{archiveId}")
+    public Result<PageVO> getArchiveBlogList(@RequestParam(defaultValue = "1") Long current, @PathVariable("archiveId") Integer archiveId) {
+        logger.info("current {} archiveId {}", current, archiveId);
+        QueryWrapper<Blog> wrapper = new QueryWrapper<>();
+        wrapper.eq(Blog.ARCHIVE_ID, archiveId);
+        PageVO pageVO = blogService.pageList(current, wrapper);
         return Result.success(pageVO);
     }
 }
