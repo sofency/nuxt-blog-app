@@ -27,7 +27,6 @@ export default {
   background-position-x: center;
   background-position-y: center;
   background-size: cover;
-  background-image: url("https://www.baicho.cn/usr/themes/Cuteen/static/img/default-list-bg.jpg");
 }
 .bg-img::before {
   content: "";
@@ -36,6 +35,6 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.2);
+  background: transparent;
 }
 </style>

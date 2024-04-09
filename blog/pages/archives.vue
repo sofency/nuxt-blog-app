@@ -3,7 +3,6 @@
     <NavHeader />
     <CommonHeadImage :message="message" />
     <ArchiveDetail :archives="archives" />
-    <Fotter />
   </div>
 </template>
 

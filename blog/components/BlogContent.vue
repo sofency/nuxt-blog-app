@@ -71,6 +71,8 @@ export default {
     border-bottom: 1px solid #eee;
     margin-bottom: 15px;
     background-color: white;
+    padding: 10px;
+    border-radius: 10px;
 
     .blog-title {
       font-size: 25px;

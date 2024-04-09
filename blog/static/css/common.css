@@ -1,5 +1,27 @@
 body {
   background-color: #fafafa;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  /* 消除默认的margin */
+  overflow: auto;
+  /* 允许滚动 */
+}
+
+body::before {
+  content: "";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  /* 确保背景图片在内容之下 */
+  background: url(/img/bg.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 :root {

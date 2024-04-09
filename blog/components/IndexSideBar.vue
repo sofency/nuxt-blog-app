@@ -47,7 +47,7 @@
       </div>
     </div>
 
-    <div class="blog-info">
+    <div class="blog-info card-bg">
       <h2>访问统计</h2>
       <div class="about-statistic">
         <div class="card-content">
@@ -69,19 +69,25 @@ export default {};
 </script>
 <style lang="less" scoped >
 .sidebar {
+  .card-bg {
+    background: url(/img/statistic.webp);
+    color: #fff;
+    h2 {
+      color: #fff;
+    }
+  }
   .blog-info {
-    border: 2px solid #f5f5f6;
     padding: 10px 30px;
     border-radius: 10px;
     margin-left: 50px;
     margin-bottom: 30px;
+    background-color: #f5f5f6;
 
     .about-statistic {
       min-height: 250px;
       background-size: cover;
       overflow: hidden;
       border-radius: 24px;
-      background: var(--card-bg);
       border: transparent;
       box-shadow: 0 8px 16px -4px #2c2d300c;
       position: relative;
@@ -99,7 +105,6 @@ export default {};
         .statistic {
           border-radius: 15px;
           width: 100%;
-          // color: #fff;
           display: flex;
           justify-content: space-between;
           flex-direction: row;
@@ -164,7 +169,7 @@ export default {};
         align-items: center; /* 如果需要垂直居中 */
         height: 30px;
         line-height: 30px;
-        border-bottom: 1px solid #f5f5f6;
+        border-bottom: 1px solid white;
         .right {
           margin-right: 10px;
         }

@@ -6,9 +6,9 @@
       </div>
       <div ref="replyBox">
         <Row type="flex" class="comment-input">
-          <Col :span="0" :lg="2" class="comment-input-img">
+          <div class="comment-input-img">
             <img src="/img/avatar.jpeg" alt="avatar" />
-          </Col>
+          </div>
           <Col :span="24" :lg="20" class="comment-dialog">
             <textarea
               name="message"
@@ -49,10 +49,10 @@
         v-for="(comment, index) in comments"
         :key="index"
       >
-        <Col :span="2" :lg="2" class="comment-input-img">
+        <div class="comment-input-img">
           <img src="/img/avatar.jpeg" alt="avatar" />
-        </Col>
-        <Col :span="22" :lg="22" class="comment-input-img">
+        </div>
+        <Col :span="22" :lg="22" class="comment-input-dialog">
           <div class="user-comment-info">
             <div>
               <span class="user-name">sofency</span>
@@ -79,9 +79,9 @@
               v-for="(child, child_index) in comment.childComment"
               :key="child_index"
             >
-              <Col :span="2" :lg="2" class="comment-input-img">
+              <div :span="2" :lg="2" class="comment-input-img">
                 <img src="/img/avatar.jpeg" alt="avatar" />
-              </Col>
+              </div>
               <Col :span="22" :lg="22">
                 <div>
                   <span class="user-name" v-if="child.replyName == null">{{
@@ -205,25 +205,6 @@ export default {
 };
 </script>
 <style scoped lang="less">
-.reply {
-  margin-left: 10px;
-  padding: 0;
-  border: none;
-  background-color: transparent;
-}
-
-.second-comment {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #eee;
-}
-.reply:hover {
-  color: cornflowerblue;
-}
-.text-color {
-  color: #98a6ad;
-  font-size: 10px;
-}
 .user-comment-info {
   .user-name {
     font-size: 15px;
@@ -232,19 +213,41 @@ export default {
     margin-left: 20px;
     margin-right: 15px;
   }
-}
-.comment-detail {
-  border-top: 1px solid rgba(222, 229, 231, 0.45);
-  padding-top: 10px;
-  margin-bottom: 20px;
-}
-.comment-input-img {
-  img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+  .reply {
+    margin-left: 10px;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+  .second-comment {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
+  }
+  .reply:hover {
+    color: cornflowerblue;
+  }
+  .text-color {
+    color: #98a6ad;
+    font-size: 10px;
   }
 }
+.comment-info {
+  .comment-detail {
+    border-top: 1px solid rgba(222, 229, 231, 0.45);
+    padding-top: 10px;
+    margin-bottom: 20px;
+  }
+  .comment-input-img {
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+  }
+}
+
 .comment-input {
   margin-bottom: 20px;
   .comment-dialog {

@@ -26,7 +26,7 @@ export default {
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
-  border: 1px solid red;
+  background-color: white;
   padding: 20px;
   border-radius: 10px;
   .category-list li {
